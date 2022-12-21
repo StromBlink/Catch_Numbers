@@ -23,7 +23,12 @@ public class AreaManager : MonoBehaviour
     [SerializeField] float areaCaptureCountDown = 0;
 
     public static float createCubeCountDown;
+    [SerializeField] MeshRenderer areaCapture_Build;
+    [SerializeField] Image areaCapture_Shadow;
+    [SerializeField] Image areaCapture_Circle;
+    [SerializeField] Image areaCapture_Fillbackground;
     [SerializeField] Image areaCapture_Fill;
+    [SerializeField] Image areaCapture_Load_Cube_Fill;
     [SerializeField] GameObject prefabCube;
     Vector3 newScale;
     public float range = 3f;
@@ -32,6 +37,7 @@ public class AreaManager : MonoBehaviour
     bool oncapture;
     bool onanimaton = true;
     float _countDown;
+    float _countDown_CreateCube;
 
     private void Start()
     {
@@ -46,6 +52,8 @@ public class AreaManager : MonoBehaviour
 
     void Update()
     {
+
+
         if (freeState == FreeState.enemy_2)
         {
             if (areaCapture_Fill.fillAmount < 1)
@@ -57,7 +65,12 @@ public class AreaManager : MonoBehaviour
             }
             if (target != null) _countDown += Time.deltaTime * 2;
         }
-        if (oncapture) return;
+        if (oncapture)
+        {
+            _countDown_CreateCube += Time.deltaTime;
+            areaCapture_Load_Cube_Fill.fillAmount = _countDown_CreateCube / createCubeCountDown;
+            return;
+        }
         if (areaCapture_Fill.fillAmount < 1)
         {
             areaCapture_Fill.fillAmount = _countDown / areaCaptureCountDown;
@@ -161,6 +174,7 @@ public class AreaManager : MonoBehaviour
     }
     IEnumerator SpawnNumber(GameObject other)
     {
+        _countDown_CreateCube = 0;
         float areadistance = 3f;
 
         if (target != null && oncapture)
@@ -196,8 +210,8 @@ public class AreaManager : MonoBehaviour
             });
 
         }
-        float newcountdown = Random.Range(createCubeCountDown - 1, createCubeCountDown + 1);
-        yield return new WaitForSeconds(newcountdown);
+
+        yield return new WaitForSeconds(createCubeCountDown);
         StartCoroutine(SpawnNumber(target));
     }
     void IntruderClour(GameObject other)
@@ -211,12 +225,12 @@ public class AreaManager : MonoBehaviour
     {
         areaCapture_Fill.color = newColor;
         Transform t = Castle.transform;
-        t.GetChild(0).GetComponent<MeshRenderer>().material.color = newColor;
-        t.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("Shadow Color", newColor);
+        areaCapture_Build.material.color = newColor;
+        areaCapture_Build.material.SetColor("Shadow Color", newColor);
 
-        t.GetChild(1).GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b, 0.3f);
-        t.GetChild(2).GetComponent<Image>().color = newColor;
-        t.GetChild(3).GetComponent<Image>().color = newColor;
+        areaCapture_Shadow.color = new Color(newColor.r, newColor.g, newColor.b, 0.3f);
+        areaCapture_Circle.color = newColor;
+        areaCapture_Fillbackground.color = newColor;
 
     }
     void AddList(Transform other, Transform this__)
