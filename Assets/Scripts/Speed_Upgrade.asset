@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5ee1fdeadf73b4481a284eb6f6a0ee, type: 3}
+  m_Name: Speed_Upgrade
+  m_EditorClassIdentifier: 
+  playerSpeed: 4
+  areaCreatingTime: 10
+  price:
+  - 100
+  - 110
+  - 121
+  - 133.1
+  - 146.41
+  - 161.051
+  - 177.1561
+  - 194.8717
+  - 214.35887
+  - 235.79478
+  - 259.37427
+  - 285.31174
+  - 313.84286
+  - 345.2272
+  - 379.7499
+  - 417.72488
+  - 459.49738
+  - 505.44714
+  - 555.9918
+  - 611.591
+  - 672.7501
+  - 740.0251
+  - 814.0276
+  - 895.43036
+  - 984.97345
+  - 1083.4707
+  - 1191.8181
+  - 1310.9998
+  - 1442.1
+  - 1586.31
+  - 1744.941
+  - 1919.435
+  - 2111.3784
+  - 2322.5159
+  - 2554.7676
+  - 3011
