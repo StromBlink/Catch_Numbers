@@ -47,6 +47,7 @@ public class TargetIndicator : MonoBehaviour
         if (target == null) { DeathTarget(); return; }
         if (!target.activeSelf) { DeathTarget(); return; }
         leveltext.text = target.gameObject.tag;
+        leveltext.transform.parent.GetComponent<Image>().color = target.gameObject.GetComponent<MeshRenderer>().material.color;
         //Get the position of the target in relation to the screenSpace 
         Vector3 indicatorPosition = mainCamera.WorldToScreenPoint(target.transform.position);
         //Debug.Log("GO: "+ gameObject.name + "; slPos: " + indicatorPosition + "; cvWidt: " + canvasRect.rect.width + "; cvHeight: " + canvasRect.rect.height);
