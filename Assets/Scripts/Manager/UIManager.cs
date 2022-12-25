@@ -38,9 +38,9 @@ public class UIManager : MonoBehaviour
     private void Awake() => Instance = this;
     private void Start()
     {
-        PlayerPrefs.SetFloat("Exp", 10000);
-        PlayerPrefs.SetFloat("Money", 0);
-        PlayerPrefs.SetFloat("DefaultMoney", 1000);
+        /*  PlayerPrefs.SetFloat("Exp", 10000);
+         PlayerPrefs.SetFloat("Money", 0);
+         PlayerPrefs.SetFloat("DefaultMoney", 1000); */
 
         CreatLevel_exp();
         /* UpgradeLevel(); */

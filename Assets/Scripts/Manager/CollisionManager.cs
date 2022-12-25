@@ -84,7 +84,7 @@ public class CollisionManager : MonoBehaviour
             else if (mynumber > collisionNumber)
             {
                 other.GetComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().material;
-                other.GetComponent<Collider>().isTrigger = true;
+                FreeCubeorCaughtCube(other);
                 StartCoroutine(IE_SearchClon(other));
             }
             else if (mynumber < collisionNumber)
@@ -94,6 +94,14 @@ public class CollisionManager : MonoBehaviour
             }
         }
 
+    }
+    void FreeCubeorCaughtCube(GameObject other)
+    {
+        if (other.transform.parent != null)
+            if (other.transform.parent.CompareTag("Player") || other.transform.parent.CompareTag("Enemy"))
+                if (other.transform.parent.GetChild(0) != null)
+                    if (other.transform.parent.GetChild(0).TryGetComponent<CollisionManager>(out CollisionManager collisionManager))
+                        collisionManager.listCatchCubes.Remove(ToInt(other.transform));
     }
     void Lose()
     {
@@ -158,6 +166,7 @@ public class CollisionManager : MonoBehaviour
 
         other.transform.parent = Player.transform;
         AddTransform(other);
+        other.layer = gameObject.layer;
     }
 
 

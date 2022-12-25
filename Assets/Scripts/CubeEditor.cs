@@ -8,10 +8,7 @@ using static Utilites;
 public class CubeEditor : MonoBehaviour
 {
     [SerializeField] MeshRenderer meshRenderer;
-    [SerializeField] Material material_1;
-    [SerializeField] Material material_2;
-    [SerializeField] Material material_3;
-    [SerializeField] Material material_4;
+
     int counter;
 
     public void Start()
@@ -29,14 +26,14 @@ public class CubeEditor : MonoBehaviour
     }
     public void MaterialClour()
     {
-        float randomnumber = Random.Range(0, 4);
+        /* float randomnumber = Random.Range(0, 4);
         switch (randomnumber)
         {
             case 0: meshRenderer.material = material_1; break;
             case 1: meshRenderer.material = material_2; break;
             case 2: meshRenderer.material = material_3; break;
             case 3: meshRenderer.material = material_4; break;
-        }
+        } */
         /* switch (gameObject.tag)
         {
             case "2": case "32": case "512": case "8192": case "128k": meshRenderer.material = material_1; break;
@@ -63,7 +60,7 @@ public class CubeEditor : MonoBehaviour
             if (number2 == tag)
             {
                 Color.RGBToHSV(meshRenderer.material.color, out float H, out float S, out float V);
-                Color newcolor = Color.HSVToRGB(H, S, (V * (1f - i * .01f)));
+                Color newcolor = Color.HSVToRGB(H, S, (V * (1f - i * .02f)));
                 meshRenderer.material.color = newcolor;
                 meshRenderer.material.SetColor("Shadow Color", newcolor);
             }

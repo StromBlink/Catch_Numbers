@@ -39,6 +39,8 @@ public class AreaManager : MonoBehaviour
     float _countDown;
     float _countDown_CreateCube;
 
+    List<Transform> instateCube = new List<Transform>(5);
+
     private void Start()
     {
 
@@ -48,11 +50,29 @@ public class AreaManager : MonoBehaviour
         InvokeRepeating("UpdateTarget", 0f, 0.25f);
         StartCoroutine(SpawnNumber(target));
     }
+    void CubesMovementController()
+    {
+        if (instateCube.Count > 0)
+            for (int i = 0; i < instateCube.Count; i++)
+            {
+                if (instateCube[i] == null) { instateCube.Remove(instateCube[i]); break; }
+                if (instateCube[i].parent != null)
+                    if (instateCube[i].parent.CompareTag("Player") || instateCube[i].parent.CompareTag("Enemy"))
+                    { instateCube.Remove(instateCube[i]); break; }
+                instateCube[i].position = Vector3.MoveTowards(instateCube[i].position, target.transform.position, Time.deltaTime * 10f);
+                if (Vector3.Distance(instateCube[i].position, target.transform.position) < 0.1f)
+                {
+                    instateCube.Remove(instateCube[i]);
+                }
+
+            }
+
+    }
 
 
     void Update()
     {
-
+        CubesMovementController();
 
         if (freeState == FreeState.enemy_2)
         {
@@ -67,6 +87,10 @@ public class AreaManager : MonoBehaviour
         }
         if (oncapture)
         {
+            if (target != null)
+                AreaColor(target.GetComponent<MeshRenderer>().material.color);
+            else AreaColor(Color.gray);
+
             _countDown_CreateCube += Time.deltaTime;
             areaCapture_Load_Cube_Fill.fillAmount = _countDown_CreateCube / createCubeCountDown;
             return;
@@ -175,40 +199,11 @@ public class AreaManager : MonoBehaviour
     IEnumerator SpawnNumber(GameObject other)
     {
         _countDown_CreateCube = 0;
-        float areadistance = 3f;
 
         if (target != null && oncapture)
         {
             GameObject cubesoldier = Instantiate(prefabCube, transform.position, Quaternion.identity);
-            float distance = Vector3.Distance(other.transform.position, cubesoldier.transform.position);
-            cubesoldier.transform.DOMove(other.transform.position, distance / 25f).SetEase(Ease.Linear).OnComplete(() =>
-            {
-
-                float distance = Vector3.Distance(other.transform.position, cubesoldier.transform.position);
-                if (distance < areadistance) { SpawnCube(other, cubesoldier); }
-                else
-                    cubesoldier.transform.DOMove(other.transform.position, distance / 20f).SetEase(Ease.Linear).OnComplete(() =>
-                    {
-                        float distance = Vector3.Distance(other.transform.position, cubesoldier.transform.position);
-                        if (distance < areadistance) { SpawnCube(other, cubesoldier); }
-                        else
-                            cubesoldier.transform.DOMove(other.transform.position, distance / 15f).SetEase(Ease.Linear).OnComplete(() =>
-                            {
-                                float distance = Vector3.Distance(other.transform.position, cubesoldier.transform.position);
-                                if (distance < areadistance) { SpawnCube(other, cubesoldier); }
-                                else
-                                    cubesoldier.transform.DOMove(other.transform.position, distance / 10f).SetEase(Ease.Linear).OnComplete(() =>
-                                {
-                                    float distance = Vector3.Distance(other.transform.position, cubesoldier.transform.position);
-                                    if (distance < areadistance) { SpawnCube(other, cubesoldier); }
-                                    else
-                                        cubesoldier.transform.DOMove(other.transform.position, distance / 10f).SetEase(Ease.Linear).OnComplete(() =>
-                                        { SpawnCube(other, cubesoldier); });
-                                });
-                            });
-                    });
-            });
-
+            instateCube.Add(cubesoldier.transform);
         }
 
         yield return new WaitForSeconds(createCubeCountDown);
@@ -233,11 +228,6 @@ public class AreaManager : MonoBehaviour
         areaCapture_Fillbackground.color = newColor;
 
     }
-    void AddList(Transform other, Transform this__)
-    {
-        other.GetComponent<CollisionManager>().listFreeCubes.Add(this__);
-    }
-
 
     void ParticulControl(bool key)
     {

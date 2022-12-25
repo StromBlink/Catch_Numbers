@@ -38,7 +38,7 @@ public class SpawnEditor : MonoBehaviour
 
                 break;
 
-            case PrefabState.Enemy: CreatePrefab(); SpawnPrefab(PrefabState.Enemy); break;
+            case PrefabState.Enemy: SpawnPrefab(PrefabState.Enemy); break;
             case PrefabState.Area: CreatePrefab(); SpawnPrefab(PrefabState.Area); break;
             case PrefabState.DesignObject: CreatePrefab(); SpawnPrefab(PrefabState.DesignObject); break;
         }

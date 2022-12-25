@@ -24,6 +24,7 @@ TagManager:
   - 65536
   - Enemy
   - Area
+  - Rocket
   layers:
   - Default
   - TransparentFX
@@ -34,11 +35,11 @@ TagManager:
   - Player
   - Shield
   - Rocket
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemey_1
+  - Enemey_2
+  - Enemey_3
+  - Enemey_4
+  - Enemey_5
   - 
   - 
   - 
