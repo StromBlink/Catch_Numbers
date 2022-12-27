@@ -87,10 +87,6 @@ public class AreaManager : MonoBehaviour
         }
         if (oncapture)
         {
-            if (target != null)
-                AreaColor(target.GetComponent<MeshRenderer>().material.color);
-            else AreaColor(Color.gray);
-
             _countDown_CreateCube += Time.deltaTime;
             areaCapture_Load_Cube_Fill.fillAmount = _countDown_CreateCube / createCubeCountDown;
             return;
