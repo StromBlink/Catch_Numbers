@@ -73,7 +73,7 @@ public class AreaManager : MonoBehaviour
     void Update()
     {
         CubesMovementController();
-
+        if (target != null && intruderState == IntruderState.inside) _countDown += Time.deltaTime * 2;
         if (freeState == FreeState.enemy_2)
         {
             if (areaCapture_Fill.fillAmount < 1)
@@ -83,7 +83,7 @@ public class AreaManager : MonoBehaviour
                 if (_countDown < 0) { _countDown = 0; }
 
             }
-            if (target != null) _countDown += Time.deltaTime * 2;
+
         }
         if (oncapture)
         {
@@ -98,7 +98,7 @@ public class AreaManager : MonoBehaviour
             if (_countDown < 0) { _countDown = 0; }
 
         }
-        if (target != null && intruderState == IntruderState.inside) _countDown += Time.deltaTime * 2;
+
 
     }
     void UpdateTarget()
@@ -126,7 +126,7 @@ public class AreaManager : MonoBehaviour
 
             /*  target = nearestEnemy; */
             CaptureArea(nearestEnemy);
-            IntruderClour(nearestEnemy);
+
             StartCoroutine(Animation());
 
         }
@@ -134,7 +134,7 @@ public class AreaManager : MonoBehaviour
         {
             intruderState = IntruderState.outside;
 
-            if (oncapture) return;
+            if (oncapture) { IntruderClour(target); return; }
 
             StopCoroutine(Animation());
             IntruderClour(target);
@@ -152,20 +152,22 @@ public class AreaManager : MonoBehaviour
                 target = other.gameObject;
                 oncapture = true;
                 areaCapture_Fill.fillAmount = 1;
-                areaCapture_Fill.color = other.GetComponent<MeshRenderer>().material.color;
+                IntruderClour(target);
                 getInstanceID = other.GetInstanceID();
                 freeState = FreeState.enemy_1;
                 _countDown = 3f;
             }
             if (getInstanceID != other.GetInstanceID() && target != null && freeState == FreeState.enemy_1)
             {
+
                 areaCapture_Fill.fillAmount = 0;
                 _countDown = 0;
                 freeState = FreeState.enemy_2;
             }
-
+            IntruderClour(other.gameObject);
             if (areaCapture_Fill.fillAmount >= 1 && (!oncapture || freeState == FreeState.enemy_2))
             {
+
                 getInstanceID = other.GetInstanceID();
                 target = other.gameObject;
                 ParticulControl(true);
@@ -207,7 +209,7 @@ public class AreaManager : MonoBehaviour
     }
     void IntruderClour(GameObject other)
     {
-        if (intruderState == IntruderState.inside)
+        if (intruderState == IntruderState.inside || oncapture == true)
             AreaColor(other.GetComponent<MeshRenderer>().material.color);
         else AreaColor(Color.gray);
 
