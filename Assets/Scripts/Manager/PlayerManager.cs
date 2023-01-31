@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Utilites;
 using System;
+using UnityEngine.Serialization;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class PlayerManager : MonoBehaviour
     public float boostTime = 5;
     [SerializeField] MovingController movingController;
     [SerializeField] CameraController cameraController;
+    
+
+    public DynamicJoystick joystick;
     private void Awake()
     {
         Instance = this;
@@ -29,16 +33,20 @@ public class PlayerManager : MonoBehaviour
     }
     void InputController()
     {
-        movingController.Moving(speed, transform);
-
         if (Input.touchCount > 0)
         {
+            speed = 5;
+            Vector3 direction = Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal;
+            transform.Translate(direction * (speed * Time.deltaTime),Space.World);
+            transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(direction), transform.rotation, Time.deltaTime * speed);
+            
 
-            Touch parmak = Input.GetTouch(0);
-            _speed = _speed + parmak.deltaPosition.x * Time.deltaTime * 10;
-            movingController.Roration(_speed, gameObject);
         }
-        if (Input.GetKey(KeyCode.A))
+        else
+        {
+            speed = 0;
+        }
+        /*if (Input.GetKey(KeyCode.A))
         {
 
             _speed -= 3f;
@@ -59,7 +67,7 @@ public class PlayerManager : MonoBehaviour
         {
             _speed -= 0;
             movingController.Roration(_speed, gameObject);
-        }
+        }*/
 
     }
     IEnumerator SpeedBoost()
