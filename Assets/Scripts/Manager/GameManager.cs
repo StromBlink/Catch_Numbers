@@ -11,6 +11,7 @@ public static class Utilites
 
     public static CollisionManager _CollisionManager => CollisionManager.Instance;
     public static UIManager _UIManager => UIManager.Instance;
+    public static LeadBoard _LeadBoard => LeadBoard.Instance;
 }
 public class GameManager : MonoBehaviour
 {

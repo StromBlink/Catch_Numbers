@@ -210,7 +210,13 @@ public class AreaManager : MonoBehaviour
     void IntruderClour(GameObject other)
     {
         if (intruderState == IntruderState.inside || oncapture == true)
-            AreaColor(other.GetComponent<MeshRenderer>().material.color);
+        {
+            if (other.TryGetComponent(  out MeshRenderer hinge))
+            {
+                AreaColor(other.GetComponent<MeshRenderer>().material.color);
+            }
+           
+        }
         else AreaColor(Color.gray);
 
     }

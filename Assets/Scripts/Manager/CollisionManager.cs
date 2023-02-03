@@ -7,6 +7,7 @@ using UnityEngine.AI;
 using DG.Tweening;
 using System.Collections;
 using static Utilites;
+using TMPro;
 
 public class CollisionManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class CollisionManager : MonoBehaviour
     [SerializeField] SortedList<int, Transform> listCatchCubes = new SortedList<int, Transform>(20);
     public List<Transform> listFreeCubes = new List<Transform>(20);
 
+    private TMP_Text _scroLine;
+
     private void Awake()
     {
         Instance = this;
@@ -27,7 +30,7 @@ public class CollisionManager : MonoBehaviour
     {
         //  StartCoroutine(RRUpdate());
         Expoler.Stop();
-
+        _scroLine=  LeadBoard.Instance.AddScroLine().transform.GetChild(2). GetComponent<TMP_Text>();
     }
     void Update()
     {
@@ -35,8 +38,10 @@ public class CollisionManager : MonoBehaviour
         {
             if (i == listCatchCubes.Count - 1) _MovingController.Follow(listCatchCubes.Values[i], gameObject.transform, followSpeed, .8f);
             else _MovingController.Follow(listCatchCubes.Values[i], listCatchCubes.Values[i + 1], followSpeed, .8f);
-
+            
         }
+
+        _scroLine.text = transform.tag;
 
     }
 
@@ -112,7 +117,7 @@ public class CollisionManager : MonoBehaviour
     void Death()
     {
         Expoler.Play();
-
+        GameManager.Instance.enemyList.Remove(transform.parent.gameObject);
         Destroy(GetComponent<Rigidbody>());
         foreach (var item in listCatchCubes.Values)
         {
@@ -124,7 +129,9 @@ public class CollisionManager : MonoBehaviour
         GetComponent<EnemyController>().StopAllCoroutines();
         /*   if (_GameManager.enemyList.Contains(transform.parent.gameObject))
               _GameManager.enemyList.Remove(transform.parent.gameObject); */
-
+        
+       
+        
         Destroy(GetComponent<NavMeshAgent>());
         Destroy(GetComponent<EnemyController>());
         Destroy(GetComponent<CollisionManager>());

@@ -35,7 +35,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            speed = 5;
+            speed = 3;
             Vector3 direction = Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal;
             transform.Translate(direction * (speed * Time.deltaTime),Space.World);
             transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(direction), transform.rotation, Time.deltaTime * speed);
