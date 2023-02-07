@@ -78,7 +78,8 @@ public class AreaManager : MonoBehaviour
         {
             if (areaCapture_Fill.fillAmount < 1)
             {
-                areaCapture_Fill.fillAmount = _countDown / areaCaptureCountDown;
+                areaCapture_Shadow.fillAmount = _countDown / areaCaptureCountDown;
+                areaCapture_Circle.fillAmount = _countDown / areaCaptureCountDown;
                 _countDown -= Time.deltaTime;
                 if (_countDown < 0) { _countDown = 0; }
 
@@ -151,7 +152,7 @@ public class AreaManager : MonoBehaviour
                 ParticulControl(true);
                 target = other.gameObject;
                 oncapture = true;
-                areaCapture_Fill.fillAmount = 1;
+                areaCapture_Circle.fillAmount = 1;
                 IntruderClour(target);
                 getInstanceID = other.GetInstanceID();
                 freeState = FreeState.enemy_1;
@@ -160,14 +161,14 @@ public class AreaManager : MonoBehaviour
             if (getInstanceID != other.GetInstanceID() && target != null && freeState == FreeState.enemy_1)
             {
 
-                areaCapture_Fill.fillAmount = 0;
+                areaCapture_Shadow.fillAmount = 0;
                 _countDown = 0;
                 freeState = FreeState.enemy_2;
             }
             IntruderClour(other.gameObject);
-            if (areaCapture_Fill.fillAmount >= 1 && (!oncapture || freeState == FreeState.enemy_2))
+            if (areaCapture_Shadow.fillAmount >= 0.99f && (/*!oncapture ||*/ freeState == FreeState.enemy_2))
             {
-
+                print("target değiştirildi");
                 getInstanceID = other.GetInstanceID();
                 target = other.gameObject;
                 ParticulControl(true);

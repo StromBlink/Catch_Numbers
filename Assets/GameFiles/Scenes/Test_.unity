@@ -1554,10 +1554,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 56ff79a9daa874551ae600a1c4b7d67c, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -2391,14 +2391,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 198520365}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2dddbafb828c8f42b360403bf06d788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: 2
   Prefab: {fileID: 3681337441525640293, guid: b67a49926c83f1544b20e44a0953bf1b, type: 3}
-  PrefabQuantity: 100
+  PrefabQuantity: 35
   ParentnewCube: {fileID: 198520365}
   ParentFreeCube: {fileID: 1289083231}
   inactiveCubes: []
@@ -9567,7 +9567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 2
   Prefab: {fileID: 832659163}
-  PrefabQuantity: 20
+  PrefabQuantity: 10
   ParentnewCube: {fileID: 930758347}
   ParentFreeCube: {fileID: 1289083231}
   inactiveCubes: []
@@ -19389,6 +19389,18 @@ MonoBehaviour:
   - Joel Mcbride
   scores: []
   _list: []
+  position:
+  - {x: 693.094, y: 1674.2319, z: 0}
+  - {x: 693.094, y: 1643.2297, z: 0}
+  - {x: 693.094, y: 1612.2273, z: 0}
+  - {x: 693.094, y: 1581.2249, z: 0}
+  - {x: 693.094, y: 1550.2225, z: 0}
+  - {x: 693.094, y: 1519.2202, z: 0}
+  - {x: 693.094, y: 1488.2178, z: 0}
+  - {x: 693.094, y: 1457.2155, z: 0}
+  - {x: 693.094, y: 1426.2131, z: 0}
+  - {x: 693.094, y: 1395.2108, z: 0}
+  - {x: 693.094, y: 1364.2085, z: 0}
   line: {fileID: 773287034}
 --- !u!114 &1912640987
 MonoBehaviour:
@@ -19592,7 +19604,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1745622979, guid: ae1e67e32ce6f5e439a3bbc4eff622f3, type: 3}
+  m_Sprite: {fileID: -1809523969, guid: ae1e67e32ce6f5e439a3bbc4eff622f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -20420,7 +20432,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 128
+  m_text: 64
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -20447,7 +20459,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.55
+  m_fontSize: 56.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -122685,10 +122697,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 286b560c74c3262449207ba09aebbc57, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

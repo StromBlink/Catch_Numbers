@@ -1,4 +1,5 @@
  
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -8,6 +9,8 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 
 public class LeadBoard : MonoBehaviour
@@ -21,8 +24,8 @@ public class LeadBoard : MonoBehaviour
     [Header("Score List")]
     SortedList<int,RectTransform> _listraTransforms=new SortedList<int, RectTransform>(10);
     [SerializeField] private List<Transform> scores;
-    [SerializeField] private List<RectTransform> _list = new List<RectTransform>(10);
-    List<RectTransform> _position=new List<RectTransform>(10);
+    public List<RectTransform> _list = new List<RectTransform>(10);
+  [SerializeField]    List<Vector3> position=new List<Vector3>(10);
 
 
 
@@ -36,32 +39,12 @@ public class LeadBoard : MonoBehaviour
     }
     private void Start()
     {
-        /*for (int i = 0; i <  10; i++)
-        { 
-         _position.Add(_list[i]);
-         scores[i].GetChild(0).GetComponent<TMP_Text>().text = playerNames[Random.RandomRange(0, playerNames.Count) ];
-         
-         /*_list .Add( scores[i].GetComponent<RectTransform>());#1#
-         int random_number;
-         random_number = Random.RandomRange(0, flagIcons.Count);
-         scores[i].GetChild(1).GetComponent<Image>().sprite = flagIcons[random_number];
-        }*/
-
         
-    }
+        /*InvokeRepeating("deneme", 1, 1);*/
+        
+        
 
-    public void ListLine()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            /*string _tag=transform.GetChild(i).GetChild(2).GetComponent<TMP_Text>().text;
-            int mynumber=2;
-            if (int.TryParse(_tag, out mynumber))
-              mynumber  */
-        }
-       
-    }
-    public GameObject AddScroLine(  )
+    } public GameObject AddScroLine(  )
     {  
         int random_number;
         
@@ -73,88 +56,35 @@ public class LeadBoard : MonoBehaviour
        
         random_number = Random.RandomRange(0, flagIcons.Count);
         temp.transform.GetChild(1).GetComponent<Image>().sprite = flagIcons[random_number];
+        
+        _list.Add(temp.GetComponent<RectTransform>());
         return temp;
     }
 
     void deneme()
     {
-        for (int i = 0; i <  GameManager.Instance.enemyList.Count; i++)
-        {if (GameManager.Instance.enemyList[i].transform.childCount>0)
+        for (int i = 1; i < transform.childCount; i++)
+        {
+            for (int j = i+1; j <transform.childCount-1; j++)
             {
-              string  tag=  GameManager.Instance.enemyList[i].transform.GetChild(0).tag;
-          
-               tags.Add(GameManager.Instance.enemyList[i].GetInstanceID(),tag);
-            }
+                int intag=Int32.Parse(_list[i].tag); 
+                int intag_2=Int32.Parse(_list[j].tag); 
+               
+               
+                if (intag<intag_2)
+                {
+                    _list[i].position = position[j];
+                    _list[j].position = position[i];
+                    
+                }
+            }    
         }
     }
-    private void Update()
-    {  
-        /*int tag;
-        
-        for (int i = 0; i <  GameManager.Instance.enemyList.Count; i++)
-        {
-            if (GameManager.Instance.enemyList[i].transform.childCount>0)
-            {
-                tag=CollisionManager.Instance.ToInt(GameManager.Instance.enemyList[i].transform.GetChild(0));
-          
-                if (!_listraTransforms.ContainsKey(tag))
-                    _listraTransforms.Add(tag,_list[i]);
-            }
-        } 
-        testlist();
-        _listraTransforms.Clear();*/
+   
 
-    }
+    
 
-    void testlist()
-    {
-        if(_listraTransforms.Count!=1)
-            for (int i = 0; i <_listraTransforms.Count; i++)
-            {
-                _listraTransforms.Values[i].position = _position[i].position;
-                
-                if (_list[i].position == _listraTransforms.Values[i].position  )
-                {
-                    _list[i].position = _position[i+1].position;
-                }
-
-                
-            }
-        
-    }
-
-    void ListedBoard()
-    {
-        if(_listraTransforms.Count!=1)
-            for (int i = 0; i <_listraTransforms.Count; i++)
-            { 
-                _listraTransforms.Values[i].position = _position[i].position;
-                
-                for (int j = 0; j <_listraTransforms.Count; j++)
-                {
-                    if (_listraTransforms.Values[j].position==_listraTransforms.Values[i].position && i!=j)
-                    {
-                        for (int k = i; k < _list.Count; k++)
-                        { 
-                            if (i<_list.Count)
-                            {
-                                _list[j].position = _position[i+1].position;
-                                _listraTransforms.Values[i].position = _position[i].position;
-                            }
-                            /*else
-                            {
-                                _listraTransforms.Values[j].position = _position[i1].position;
-                            }
-                            */
-                             
-                        }
-                         
-                         
-                    }
-                     
-                }
-            }
-    }
+    
 
     
 }

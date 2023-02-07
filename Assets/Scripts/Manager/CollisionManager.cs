@@ -8,6 +8,7 @@ using DG.Tweening;
 using System.Collections;
 using static Utilites;
 using TMPro;
+using Unity.VisualScripting;
 
 public class CollisionManager : MonoBehaviour
 {
@@ -20,17 +21,24 @@ public class CollisionManager : MonoBehaviour
     [SerializeField] SortedList<int, Transform> listCatchCubes = new SortedList<int, Transform>(20);
     public List<Transform> listFreeCubes = new List<Transform>(20);
 
-    private TMP_Text _scroLine;
+    private TMP_Text _scoreLine;
+    private GameObject _score;
 
     private void Awake()
     {
         Instance = this;
+         
     }
+
+   
+
     private void Start()
     {
         //  StartCoroutine(RRUpdate());
         Expoler.Stop();
-        _scroLine=  LeadBoard.Instance.AddScroLine().transform.GetChild(2). GetComponent<TMP_Text>();
+        _score = LeadBoard.Instance.AddScroLine();
+        _scoreLine=_score.transform.GetChild(2). GetComponent<TMP_Text>();
+        
     }
     void Update()
     {
@@ -41,7 +49,8 @@ public class CollisionManager : MonoBehaviour
             
         }
 
-        _scroLine.text = transform.tag;
+        _scoreLine.text = transform.tag;
+        _score.tag = tag;
 
     }
 
@@ -222,7 +231,7 @@ public class CollisionManager : MonoBehaviour
         int mynumber;
         if (int.TryParse(_tag, out mynumber))
         { mynumber = int.Parse(_tag); return mynumber; }
-        else { Debug.Log(" Basiriz TryPares" + " ==" + _tag); return mynumber = 999999; }
+        else { /*Debug.Log(" Basiriz TryPares" + " ==" + _tag);*/ return mynumber = 999999; }
 
 
     }
